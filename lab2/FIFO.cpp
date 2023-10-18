@@ -2,17 +2,18 @@
 
 using namespace std;
 
-struct Node 
+struct Node
 {
-    int data; 
+    int data;
     Node* next;
     Node(int val): data(val), next(nullptr) {}
 };
 
-class Stack
+class Queue
 {
-    private: 
+    private:
         Node* head;
+        Node* tail;
 
         /*
             @brief Рекурсивно выводает список с хвоста
@@ -28,9 +29,9 @@ class Stack
             
             return showFromTailRecursive(node -> next) + to_string(node -> data) + " ";
         }
-
+    
     public:
-        Stack(): head(nullptr) {}
+        Queue(): head(nullptr), tail(nullptr) {}
 
         /*
             @brief Добавление нового элемента
@@ -41,50 +42,15 @@ class Stack
         {
             Node* newNode = new Node(value);
             if (head == nullptr)
+            {
                 head = newNode;
+                tail = newNode;
+            }
             else
             {
-                newNode -> next = head; // присваиваем следующее значение next для head 
-                head = newNode; // а новое значение head примет next
-                // это соответствует структуре LIFO
+                tail -> next = newNode;
+                tail = newNode;
             }
-        }
-        
-        /*
-            @brief Выдает список с головы
-
-            @return Строка с элементами с головы
-        */
-        string showFromHead() const 
-        {
-            if (head == nullptr)
-                return "stack is empty";
-
-            string result;
-            Node* current = head;
-
-            while (current != nullptr)
-            {
-                result += to_string(current -> data) + " ";
-                current = current -> next;
-            }
-
-            return result;
-        }
-
-        /*
-            @brief Выдает элементы с хвоста
-
-            @return Строка с элементами с хвоста
-        */
-        string showFromTail() const 
-        {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "stack is empty";
-
-            return showFromTailRecursive(head);
         }
 
         /*
@@ -123,6 +89,44 @@ class Stack
         }
 
         /*
+            @brief Выдает список с головы
+
+            @return Строка с элементами с головы
+        */
+        string showFromHead() const 
+        {
+            if (head == nullptr)
+                return "queue is empty";
+
+            string result;
+            Node* current = head;
+
+            while (current != nullptr)
+            {
+                result += to_string(current -> data) + " ";
+                current = current -> next;
+            }
+
+            return result;
+        }
+
+        /*
+            @brief Выдает элементы с хвоста
+
+            @return Строка с элементами с хвоста
+        */
+        string showFromTail() const 
+        {
+            string result = showFromTailRecursive(head);
+            
+            if (result == "")
+                return "queue is empty";
+
+            return showFromTailRecursive(head);
+        }
+
+
+        /*
             @brief Считает элементы с заданным значением
 
             @param Значение
@@ -145,20 +149,28 @@ class Stack
         }
 };
 
+
 int main()
 {
-    Stack stack;
+    Queue queue;
 
-    stack.add(5);
-    stack.add(10);
-    stack.add(15);
-    stack.add(10);
+    queue.add(5);
+    queue.add(10);
+    queue.add(15);
+    queue.add(10);
 
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Stack from tail: " << stack.showFromTail() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
+    cout << "queue from head: " << queue.showFromHead() << endl;
+    cout << "queue from tail: " << queue.showFromTail() << endl;
+    cout << "Elements with data = 10: " << queue.count(10) << endl;
 
-    stack.remove(10);
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
-}
+    queue.remove(10);
+    cout << "queue from head: " << queue.showFromHead() << endl;
+    cout << "Elements with data = 10: " << queue.count(10) << endl;
+
+    queue.remove(15);
+    cout << "queue from head: " << queue.showFromHead() << endl;
+    queue.remove(4);
+    queue.remove(5);
+    queue.remove(4);
+    cout << "queue from head: " << queue.showFromHead() << endl;
+}   
