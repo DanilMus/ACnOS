@@ -1,17 +1,17 @@
 #include <iostream>
 
-using namespace std;
+using namespace std; 
 
-struct Node 
+struct Node
 {
-    int data; 
+    int key;
     Node* next;
-    Node(int val): data(val), next(nullptr) {}
+    Node(int val): key(val), next(nullptr) {}
 };
 
-class Stack
+class SortedList
 {
-    private: 
+    private:
         Node* head;
 
         /*
@@ -26,32 +26,38 @@ class Stack
             if (node == nullptr)
                 return "";
             
-            return showFromTailRecursive(node -> next) + to_string(node -> data) + " ";
+            return showFromTailRecursive(node -> next) + to_string(node -> key) + " ";
         }
 
     public:
-        Stack(): head(nullptr) {}
+        SortedList(): head(nullptr) {}
 
         /*
             @brief Добавление нового элемента
 
             @param Значение, которое будет хранить новый элемент 
         */
-        void add(int value)
-        {
+       void add(int value)
+       {
             Node* newNode = new Node(value);
-            
-            if (head == nullptr)
+
+            if (!head || value < head->key)
+            {
+                newNode->next = head;
                 head = newNode;
+            }
             else
             {
-                newNode -> next = head; // присваиваем следующее значение next для head 
-                head = newNode; // а новое значение head примет next
-                // это соответствует структуре LIFO
+                Node* current = head;
+                while (current->next && current->next->key <= value)
+                    current = current->next;
+                
+                newNode->next = current->next;
+                current->next = newNode;
             }
-        }
-        
-        /*
+       }
+
+       /*
             @brief Выдает список с головы
 
             @return Строка с элементами с головы
@@ -59,14 +65,14 @@ class Stack
         string showFromHead() const 
         {
             if (head == nullptr)
-                return "stack is empty";
+                return "sorted list is empty";
 
             string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += to_string(current -> data) + " ";
+                result += to_string(current -> key) + " ";
                 current = current -> next;
             }
 
@@ -88,6 +94,7 @@ class Stack
             return showFromTailRecursive(head);
         }
 
+
         /*
             @brief Удаляет элементы с заданным значение
 
@@ -100,7 +107,7 @@ class Stack
 
             while (current != nullptr)
             {
-                if (current -> data == value)
+                if (current -> key == value)
                 {
                     if (prev == nullptr) // если текущий элемент - это голова
                     {
@@ -137,7 +144,7 @@ class Stack
 
             while (current != nullptr)
             {
-                if (current -> data == value)
+                if (current -> key == value)
                     count++;
                 current = current -> next;
             }
@@ -148,18 +155,18 @@ class Stack
 
 int main()
 {
-    Stack stack;
+    SortedList list;
 
-    stack.add(10);
-    stack.add(10);
-    stack.add(15);
-    stack.add(10);
+    list.add(6);
+    list.add(10);
+    list.add(15);
+    list.add(10);
 
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Stack from tail: " << stack.showFromTail() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
+    cout << "list from head: " << list.showFromHead() << endl;
+    cout << "list from tail: " << list.showFromTail() << endl;
+    cout << "Elements with data = 10: " << list.count(10) << endl;
 
-    stack.remove(10);
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
+    list.remove(10);
+    cout << "list from head: " << list.showFromHead() << endl;
+    cout << "Elements with data = 10: " << list.count(10) << endl;
 }
