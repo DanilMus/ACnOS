@@ -6,31 +6,17 @@ struct Node
 {
     int key;
     Node* next;
-    Node(int val): key(val), next(nullptr) {}
+    Node* prev;
+    Node(int val): key(val), prev(nullptr), next(nullptr) {}
 };
 
-class SortedList
+class SortedBidirectionalList
 {
     private:
         Node* head;
 
-        /*
-            @brief Рекурсивно выводает список с хвоста
-
-            @param Нода для взятия из нее данных для вывода
-
-            @return Строка с элементами стэка с хвоста
-        */
-        string showFromTailRecursive(Node* node) const 
-        {
-            if (node == nullptr)
-                return "";
-            
-            return showFromTailRecursive(node -> next) + to_string(node -> key) + " ";
-        }
-
     public:
-        SortedList(): head(nullptr) {}
+        SortedBidirectionalList(): head(nullptr) {}
 
         /*
             @brief Добавление нового элемента
@@ -44,6 +30,8 @@ class SortedList
             if (!head || value < head->key) // встает перед головой
             {
                 newNode->next = head;
+                if (head)
+                    head->prev = newNode;
                 head = newNode;
             }
             else // встает после головы
@@ -51,12 +39,16 @@ class SortedList
                 Node* current = head;
                 while (current->next && current->next->key <= value) // проходим до тех пор, пока не встретим большее значение, это будет местом, где должен будет стоять наш элемент
                     current = current->next;
-                // по итогу current - это элемент, который меньше или равен, которому вставляем, но после которого идет эл-т больше вставляемого    
+                // по итогу current - это элемент, который меньше или равен, которому вставляем, но после которого идет эл-т больше вставляемого
                 
+
                 newNode->next = current->next;
+                if (current->next)
+                    current->next->prev = newNode;
                 current->next = newNode;
+                newNode->prev = current;
                 // после всех вставок должно получится
-                // current -> newNode -> current->next
+                // current <-> newNode <-> current->next
             }
        }
 
@@ -89,12 +81,21 @@ class SortedList
         */
         string showFromTail() const 
         {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "stack is empty";
+            if (head == nullptr)
+                return "sorted list is empty";
 
-            return showFromTailRecursive(head);
+            Node* current = head;
+            while (current->next != nullptr)
+                current = current->next; // доходим до конца
+            
+            string result;
+            while (current != nullptr)
+            {
+                result += to_string(current -> key) + " ";
+                current = current -> prev;
+            }
+
+            return result;
         }
 
 
@@ -106,30 +107,30 @@ class SortedList
         void remove(int value)
         {
             Node* current = head;
-            Node* prev = nullptr;
 
             while (current != nullptr)
             {
                 if (current -> key == value)
                 {
-                    if (prev == nullptr) // если текущий элемент - это голова
+                    if (current->prev == nullptr) // если текущий элемент - это голова
                     {
                         head = head -> next;
+                        head->prev = nullptr;
                         delete current;
                         current = head; 
                     }
-                    else // есди текущий элемент это все последующие
+                    else // если текущий элемент это все последующие
                     {
-                        prev -> next = current -> next;
+                        current->prev -> next = current->next;
+                        current->next -> prev = current->prev;
+                        Node* remember = current->next;
                         delete current;
-                        current = prev -> next;
+                        current = remember;
+                        remember = nullptr;
                     }
                 }
                 else
-                {
-                    prev = current;
                     current = current -> next;
-                }
             }
         }
 
@@ -158,7 +159,7 @@ class SortedList
 
 int main()
 {
-    SortedList list;
+    SortedBidirectionalList list;
 
     list.add(6);
     list.add(10);
