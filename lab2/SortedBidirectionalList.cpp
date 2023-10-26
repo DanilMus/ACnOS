@@ -2,17 +2,17 @@
 
 using namespace std; 
 
-struct Node
-{
-    int key;
-    Node* next;
-    Node* prev;
-    Node(int val): key(val), prev(nullptr), next(nullptr) {}
-};
-
+template <typename T>
 class SortedBidirectionalList
 {
     private:
+        struct Node
+        {
+            T key;
+            Node* next;
+            Node* prev;
+            Node(T val): key(val), next(nullptr), prev(nullptr) {}
+        };
         Node* head;
 
     public:
@@ -23,7 +23,7 @@ class SortedBidirectionalList
 
             @param Значение, которое будет хранить новый элемент 
         */
-       void add(int value)
+       void add(T value)
        {
             Node* newNode = new Node(value);
 
@@ -104,7 +104,7 @@ class SortedBidirectionalList
 
             @param Значение элемента для удаления
         */
-        void remove(int value)
+        void remove(T value)
         {
             Node* current = head;
 
@@ -159,7 +159,7 @@ class SortedBidirectionalList
 
 int main()
 {
-    SortedBidirectionalList list;
+    SortedBidirectionalList<int> list;
 
     list.add(6);
     list.add(10);

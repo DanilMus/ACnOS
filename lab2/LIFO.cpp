@@ -2,16 +2,17 @@
 
 using namespace std;
 
-struct Node 
-{
-    int data; 
-    Node* next;
-    Node(int val): data(val), next(nullptr) {}
-};
-
+template <typename T>
 class Stack
 {
-    private: 
+    private:
+        struct Node
+        {
+            T data;
+            Node* next;
+            Node(T val): data(val), next(nullptr) {}
+        };
+
         Node* head;
 
         /*
@@ -37,7 +38,7 @@ class Stack
 
             @param Значение, которое будет хранить новый элемент 
         */
-        void add(int value)
+        void add(T value)
         {
             Node* newNode = new Node(value);
             
@@ -93,7 +94,7 @@ class Stack
 
             @param Значение элемента для удаления
         */
-        void remove(int value)
+        void remove(T value)
         {
             Node* current = head;
             Node* prev = nullptr;
@@ -148,7 +149,7 @@ class Stack
 
 int main()
 {
-    Stack stack;
+    Stack<int> stack;
 
     stack.add(10);
     stack.add(10);

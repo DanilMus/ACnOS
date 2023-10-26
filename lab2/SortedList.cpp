@@ -2,16 +2,16 @@
 
 using namespace std; 
 
-struct Node
-{
-    int key;
-    Node* next;
-    Node(int val): key(val), next(nullptr) {}
-};
-
+template <typename T>
 class SortedList
 {
     private:
+        struct Node
+        {
+            T key;
+            Node* next;
+            Node(T val): key(val), next(nullptr) {}
+        };
         Node* head;
 
         /*
@@ -37,7 +37,7 @@ class SortedList
 
             @param Значение, которое будет хранить новый элемент 
         */
-       void add(int value)
+       void add(T value)
        {
             Node* newNode = new Node(value);
 
@@ -103,7 +103,7 @@ class SortedList
 
             @param Значение элемента для удаления
         */
-        void remove(int value)
+        void remove(T value)
         {
             Node* current = head;
             Node* prev = nullptr;
@@ -158,7 +158,7 @@ class SortedList
 
 int main()
 {
-    SortedList list;
+    SortedList<int> list;
 
     list.add(6);
     list.add(10);

@@ -2,16 +2,17 @@
 
 using namespace std;
 
-struct Node
-{
-    int data;
-    Node* next;
-    Node(int val): data(val), next(nullptr) {}
-};
-
+template <typename T>
 class Queue
 {
     private:
+        struct Node
+        {
+            T data;
+            Node* next;
+            Node(T val): data(val), next(nullptr) {}
+        };
+
         Node* head;
         Node* tail;
 
@@ -38,7 +39,7 @@ class Queue
 
             @param Значение, которое будет хранить новый элемент 
         */
-        void add(int value)
+        void add(T value)
         {
             Node* newNode = new Node(value);
             if (head == nullptr)
@@ -58,7 +59,7 @@ class Queue
 
             @param Значение элемента для удаления
         */
-        void remove(int value)
+        void remove(T value)
         {
             Node* current = head;
             Node* prev = nullptr;
@@ -133,7 +134,7 @@ class Queue
 
             @return Количество элементов
         */
-        int count (int value) const
+        int count (T value) const
         {
             int count = 0;
             Node* current = head; 
@@ -152,7 +153,7 @@ class Queue
 
 int main()
 {
-    Queue queue;
+    Queue<int> queue;
 
     queue.add(5);
     queue.add(10);
