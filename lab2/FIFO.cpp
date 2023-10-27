@@ -123,7 +123,7 @@ class Queue
             if (result == "")
                 return "queue is empty";
 
-            return showFromTailRecursive(head);
+            return result;
         }
 
 

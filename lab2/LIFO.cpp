@@ -86,7 +86,7 @@ class Stack
             if (result == "")
                 return "stack is empty";
 
-            return showFromTailRecursive(head);
+            return result;
         }
 
         /*

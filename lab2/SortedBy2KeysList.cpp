@@ -2,15 +2,16 @@
 
 using namespace std; 
 
-template <typename T>
-class SortedList
+template <typename T1, typename T2>
+class SortedBy2KeysList
 {
     private:
         struct Node
         {
-            T key;
+            T1 key1;
+            T2 key2;
             Node* next;
-            Node(T val): key(val), next(nullptr) {}
+            Node(T1 val1, T2 val2): key1(val1), key2(val2), next(nullptr) {}
         };
         Node* head;
 
@@ -26,22 +27,22 @@ class SortedList
             if (node == nullptr)
                 return "";
             
-            return showFromTailRecursive(node -> next) + to_string(node -> key) + " ";
+            return showFromTailRecursive(node -> next) + node->key1 + ":" + to_string(node->key2) + " ";
         }
 
     public:
-        SortedList(): head(nullptr) {}
+        SortedBy2KeysList(): head(nullptr) {}
 
         /*
             @brief Добавление нового элемента
 
             @param Значение, которое будет хранить новый элемент 
         */
-       void add(T value)
+       void add(T1 value1, T2 value2)
        {
-            Node* newNode = new Node(value);
+            Node* newNode = new Node(value1, value2);
 
-            if (!head || value < head->key) // встает перед головой
+            if (!head || value1 < head->key1 && value2 < head->key2) // встает перед головой
             {
                 newNode->next = head;
                 head = newNode;
@@ -49,7 +50,7 @@ class SortedList
             else // встает после головы
             {
                 Node* current = head;
-                while (current->next && current->next->key <= value) // проходим до тех пор, пока не встретим большее значение, это будет местом, где должен будет стоять наш элемент
+                while (current->next && current->next->key1 <= value1 && current->next->key2 <= value2) // проходим до тех пор, пока не встретим большее значение, это будет местом, где должен будет стоять наш элемент
                     current = current->next;
                 // по итогу current - это элемент, который меньше или равен, которому вставляем, но после которого идет эл-т больше вставляемого    
                 
@@ -75,7 +76,7 @@ class SortedList
 
             while (current != nullptr)
             {
-                result += to_string(current -> key) + " ";
+                result += current->key1 + ":" + to_string(current->key2) + " ";
                 current = current -> next;
             }
 
@@ -103,14 +104,14 @@ class SortedList
 
             @param Значение элемента для удаления
         */
-        void remove(T value)
+        void remove(T1 value1, T2 value2)
         {
             Node* current = head;
             Node* prev = nullptr;
 
             while (current != nullptr)
             {
-                if (current -> key == value)
+                if (current->key1 == value1 && current->key2 == value2)
                 {
                     if (prev == nullptr) // если текущий элемент - это голова
                     {
@@ -140,14 +141,14 @@ class SortedList
 
             @return Количество элементов
         */
-        int count (int value) const
+        int count (T1 value1, T2 value2) const
         {
             int count = 0;
             Node* current = head; 
 
             while (current != nullptr)
             {
-                if (current -> key == value)
+                if (current -> key1 == value1 && current->key2 == value2)
                     count++;
                 current = current -> next;
             }
@@ -158,18 +159,20 @@ class SortedList
 
 int main()
 {
-    SortedList<int> list;
+    SortedBy2KeysList<string, int> list;
 
-    list.add(6);
-    list.add(10);
-    list.add(15);
-    list.add(10);
+    list.add("Мусихин", 6);
+    list.add("Иванов", 10);
+    list.add("Иванов", 3);
+    list.add("Шаравьев", 15);
+    list.add("Мусихин", 6);
+    list.add("Худеньких", 10);
 
     cout << "list from head: " << list.showFromHead() << endl;
     cout << "list from tail: " << list.showFromTail() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
+    cout << "Elements with data = Мусихин, 6: " << list.count("Мусихин", 6) << endl;
 
-    list.remove(10);
+    list.remove("Мусихин", 6);
     cout << "list from head: " << list.showFromHead() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
+    cout << "Elements with data = Мусихин, 6: " << list.count("Мусихин", 6) << endl;
 }
