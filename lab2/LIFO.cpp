@@ -151,16 +151,20 @@ int main()
 {
     Stack<int> stack;
 
-    stack.add(10);
-    stack.add(10);
-    stack.add(15);
-    stack.add(10);
-
     cout << "Stack from head: " << stack.showFromHead() << endl;
     cout << "Stack from tail: " << stack.showFromTail() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
 
-    stack.remove(10);
+    stack.add(10);
     cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Elements with data = 10: " << stack.count(10) << endl;
+    // stack.add(10);
+    // stack.add(15);
+    // stack.add(10);
+
+    // cout << "Stack from head: " << stack.showFromHead() << endl;
+    // cout << "Stack from tail: " << stack.showFromTail() << endl;
+    // cout << "Elements with data = 10: " << stack.count(10) << endl;
+
+    // stack.remove(10);
+    // cout << "Stack from head: " << stack.showFromHead() << endl;
+    // cout << "Elements with data = 10: " << stack.count(10) << endl;
 }
