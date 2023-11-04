@@ -22,12 +22,13 @@ class Stack
 
             @return Строка с элементами стэка с хвоста
         */
-        string showFromTailRecursive(Node* node) const 
+        void showFromTailRecursive(Node* node) const 
         {
             if (node == nullptr)
-                return "";
+                return;
             
-            return showFromTailRecursive(node -> next) + to_string(node -> data) + " ";
+            showFromTailRecursive(node->next);
+            cout << node->data << " ";
         }
 
     public:
@@ -54,39 +55,39 @@ class Stack
         
         /*
             @brief Выдает список с головы
-
-            @return Строка с элементами с головы
         */
-        string showFromHead() const 
+        void showFromHead() const 
         {
             if (head == nullptr)
-                return "stack is empty";
+            {
+                cout << "stack is empty" << endl;
+                return;
+            }
 
-            string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += to_string(current -> data) + " ";
+                cout << current->data << " ";
                 current = current -> next;
             }
 
-            return result;
+            cout << endl;
         }
 
         /*
             @brief Выдает элементы с хвоста
-
-            @return Строка с элементами с хвоста
         */
-        string showFromTail() const 
+        void showFromTail() const 
         {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "stack is empty";
+            if (head == nullptr)
+            {
+                cout << "stack is empty" << endl;
+                return;
+            }
 
-            return result;
+            showFromTailRecursive(head);
+            cout << endl;
         }
 
         /*
@@ -131,7 +132,7 @@ class Stack
 
             @return Количество элементов
         */
-        int count (int value) const
+        int count (T value) const
         {
             int count = 0;
             Node* current = head; 
@@ -149,22 +150,14 @@ class Stack
 
 int main()
 {
-    Stack<int> stack;
+    Stack<bool> stack;
 
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    cout << "Stack from tail: " << stack.showFromTail() << endl;
+    stack.add(true);
+    stack.add(true);
+    stack.add(false);
+    stack.showFromTail();
 
-    stack.add(10);
-    cout << "Stack from head: " << stack.showFromHead() << endl;
-    // stack.add(10);
-    // stack.add(15);
-    // stack.add(10);
-
-    // cout << "Stack from head: " << stack.showFromHead() << endl;
-    // cout << "Stack from tail: " << stack.showFromTail() << endl;
-    // cout << "Elements with data = 10: " << stack.count(10) << endl;
-
-    // stack.remove(10);
-    // cout << "Stack from head: " << stack.showFromHead() << endl;
-    // cout << "Elements with data = 10: " << stack.count(10) << endl;
+    cout << stack.count(true) << endl;
+    stack.remove(true);
+    stack.showFromTail();
 }

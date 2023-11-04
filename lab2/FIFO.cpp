@@ -20,15 +20,14 @@ class Queue
             @brief Рекурсивно выводает список с хвоста
 
             @param Нода для взятия из нее данных для вывода
-
-            @return Строка с элементами стэка с хвоста
         */
-        string showFromTailRecursive(Node* node) const 
+        void showFromTailRecursive(Node* node) const 
         {
             if (node == nullptr)
-                return "";
+                return;
             
-            return showFromTailRecursive(node -> next) + to_string(node -> data) + " ";
+            showFromTailRecursive(node -> next);
+            cout << node -> data << " ";
         }
     
     public:
@@ -91,39 +90,40 @@ class Queue
 
         /*
             @brief Выдает список с головы
-
-            @return Строка с элементами с головы
         */
-        string showFromHead() const 
+        void showFromHead() const 
         {
             if (head == nullptr)
-                return "queue is empty";
+            {
+                cout << "queue is empty" << endl;
+                return;
+            }
 
-            string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += to_string(current -> data) + " ";
+                cout << current -> data << " ";
                 current = current -> next;
             }
 
-            return result;
+            cout << endl;
         }
 
         /*
             @brief Выдает элементы с хвоста
-
-            @return Строка с элементами с хвоста
         */
-        string showFromTail() const 
+        void showFromTail() const 
         {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "queue is empty";
+            if (head == nullptr)
+            {
+                cout << "queue is empty" << endl;
+                return;
+            }
 
-            return result;
+            showFromTailRecursive(head);
+
+            cout << endl;
         }
 
 
@@ -155,23 +155,11 @@ int main()
 {
     Queue<int> queue;
 
-    queue.add(5);
-    queue.add(10);
-    queue.add(15);
-    queue.add(10);
-
-    cout << "queue from head: " << queue.showFromHead() << endl;
-    cout << "queue from tail: " << queue.showFromTail() << endl;
-    cout << "Elements with data = 10: " << queue.count(10) << endl;
-
-    queue.remove(10);
-    cout << "queue from head: " << queue.showFromHead() << endl;
-    cout << "Elements with data = 10: " << queue.count(10) << endl;
-
-    queue.remove(15);
-    cout << "queue from head: " << queue.showFromHead() << endl;
-    queue.remove(4);
-    queue.remove(5);
-    queue.remove(4);
-    cout << "queue from head: " << queue.showFromHead() << endl;
+    queue.add(1);
+    queue.add(1);
+    queue.add(3);
+    queue.showFromHead();
+    cout << queue.count(1) << endl;
+    queue.remove(1);
+    queue.showFromHead();
 }   

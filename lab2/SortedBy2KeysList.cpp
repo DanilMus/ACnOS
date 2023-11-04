@@ -19,15 +19,14 @@ class SortedBy2KeysList
             @brief Рекурсивно выводает список с хвоста
 
             @param Нода для взятия из нее данных для вывода
-
-            @return Строка с элементами стэка с хвоста
         */
-        string showFromTailRecursive(Node* node) const 
+        void showFromTailRecursive(Node* node) const 
         {
             if (node == nullptr)
-                return "";
+                return;
             
-            return showFromTailRecursive(node -> next) + node->key1 + ":" + to_string(node->key2) + " ";
+            showFromTailRecursive(node -> next);
+            cout << node->key1 << ":" << node->key2 << endl;
         }
 
     public:
@@ -63,24 +62,24 @@ class SortedBy2KeysList
 
        /*
             @brief Выдает список с головы
-
-            @return Строка с элементами с головы
         */
-        string showFromHead() const 
+        void showFromHead() const 
         {
             if (head == nullptr)
-                return "sorted list is empty";
+            {
+                cout << "list is empty";
+                return;
+            }
 
-            string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += current->key1 + ":" + to_string(current->key2) + " ";
+                cout << current->key1 << ":" << current->key2 << endl;
                 current = current -> next;
             }
 
-            return result;
+            cout << endl;
         }
 
         /*
@@ -88,14 +87,17 @@ class SortedBy2KeysList
 
             @return Строка с элементами с хвоста
         */
-        string showFromTail() const 
+        void showFromTail() const 
         {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "stack is empty";
+            if (head == nullptr)
+            {
+                cout << "list is empty";
+                return;
+            }
 
-            return result;
+            showFromTailRecursive(head);
+
+            cout << endl;
         }
 
 
@@ -168,11 +170,6 @@ int main()
     list.add("Мусихин", 6);
     list.add("Худеньких", 10);
 
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "list from tail: " << list.showFromTail() << endl;
-    cout << "Elements with data = Мусихин, 6: " << list.count("Мусихин", 6) << endl;
-
-    list.remove("Мусихин", 6);
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "Elements with data = Мусихин, 6: " << list.count("Мусихин", 6) << endl;
+    list.showFromHead();
+    list.showFromTail();
 }

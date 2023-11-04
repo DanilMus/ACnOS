@@ -54,48 +54,48 @@ class SortedBidirectionalList
 
        /*
             @brief Выдает список с головы
-
-            @return Строка с элементами с головы
         */
-        string showFromHead() const 
+        void showFromHead() const 
         {
             if (head == nullptr)
-                return "sorted list is empty";
+            {
+                cout << "sorted list is empty" << endl;
+                return;
+            }
 
-            string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += to_string(current -> key) + " ";
+                cout << current->key << " ";
                 current = current -> next;
             }
 
-            return result;
+            cout << endl;
         }
 
         /*
             @brief Выдает элементы с хвоста
-
-            @return Строка с элементами с хвоста
         */
-        string showFromTail() const 
+        void showFromTail() const 
         {
             if (head == nullptr)
-                return "sorted list is empty";
+            {
+                cout << "sorted list is empty" << endl;
+                return;
+            }
 
             Node* current = head;
             while (current->next != nullptr)
                 current = current->next; // доходим до конца
             
-            string result;
             while (current != nullptr)
             {
-                result += to_string(current -> key) + " ";
+                cout << current->key << " ";
                 current = current -> prev;
             }
 
-            return result;
+            cout << endl;
         }
 
 
@@ -166,11 +166,6 @@ int main()
     list.add(15);
     list.add(10);
 
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "list from tail: " << list.showFromTail() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
-
-    list.remove(10);
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
+    list.showFromHead();
+    list.showFromTail();
 }

@@ -21,12 +21,13 @@ class SortedList
 
             @return Строка с элементами стэка с хвоста
         */
-        string showFromTailRecursive(Node* node) const 
+        void showFromTailRecursive(Node* node) const 
         {
             if (node == nullptr)
-                return "";
+                return;
             
-            return showFromTailRecursive(node -> next) + to_string(node -> key) + " ";
+            showFromTailRecursive(node -> next);
+            cout << node -> key << " ";
         }
 
     public:
@@ -62,39 +63,40 @@ class SortedList
 
        /*
             @brief Выдает список с головы
-
-            @return Строка с элементами с головы
         */
-        string showFromHead() const 
+        void showFromHead() const 
         {
             if (head == nullptr)
-                return "sorted list is empty";
+            {
+                cout << "sorted list is empty" << endl;
+                return;
+            }
 
-            string result;
             Node* current = head;
 
             while (current != nullptr)
             {
-                result += to_string(current -> key) + " ";
+                cout << current -> key << " ";
                 current = current -> next;
             }
 
-            return result;
+            cout << endl;
         }
 
         /*
             @brief Выдает элементы с хвоста
-
-            @return Строка с элементами с хвоста
         */
-        string showFromTail() const 
+        void showFromTail() const 
         {
-            string result = showFromTailRecursive(head);
-            
-            if (result == "")
-                return "stack is empty";
+            if (head == nullptr)
+            {
+                cout << "sorted list is empty" << endl;
+                return;
+            }
 
-            return result;
+            showFromTailRecursive(head);
+
+            cout << endl;
         }
 
 
@@ -158,18 +160,13 @@ class SortedList
 
 int main()
 {
-    SortedList<int> list;
+    SortedList<bool> list;
 
-    list.add(6);
-    list.add(10);
-    list.add(15);
-    list.add(10);
-
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "list from tail: " << list.showFromTail() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
-
-    list.remove(10);
-    cout << "list from head: " << list.showFromHead() << endl;
-    cout << "Elements with data = 10: " << list.count(10) << endl;
+    list.add(true);
+    list.add(true);
+    list.add(false);
+    list.showFromHead();
+    cout << list.count(true) << endl;
+    list.remove(true);
+    list.showFromTail();
 }

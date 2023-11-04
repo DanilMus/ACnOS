@@ -1,2 +1,10 @@
 .vscode
+
 *.exe
+
+LIFO
+FIFO
+SortedBidirectionalList
+SortedBy2KeysList
+SortedList
+BinaryTree

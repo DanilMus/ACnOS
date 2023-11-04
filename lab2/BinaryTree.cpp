@@ -33,31 +33,31 @@ private:
     }
 
     // для вывода 
-    string showRecursive(Node* current, int l) const
+    void showRecursive(Node* current, int l) const
     {
         if (current == nullptr)
-            return " ";
+            return;
         
-        string result = showRecursive(current->left, l+1);
+        showRecursive(current->left, l+1);
         for (int i = 0; i < l; i++)
-            result += "\t";
-        result += to_string(current->data) + "\n";
-        result += showRecursive(current->right, l+1);
+            cout << "\t";
+        cout << current->data << endl;
+        showRecursive(current->right, l+1);
 
-        return result;
+        cout << endl;
     }
-    string showRightToLeftRecursive(Node* current, int l) const
+    void showRightToLeftRecursive(Node* current, int l) const
     {
         if (current == nullptr)
-            return " ";
+            return;
         
-        string result = showRecursive(current->right, l+1);
+        showRecursive(current->right, l+1);
         for (int i = 0; i < l; i++)
-            result += "\t";
-        result += to_string(current->data) + "\n";
-        result += showRecursive(current->left, l+1);
+            cout << "\t";
+        cout << current->data << endl;
+        showRecursive(current->left, l+1);
 
-        return result;
+        cout << endl;
     }
 
     // балансировка
@@ -220,27 +220,23 @@ public:
 
     /*
         @brief Показ дерева слева-направо
-
-        @return Строка для вывода в консоль
     */
-    string show() const
+    void show() const
     {
         if (root)
-            return showRecursive(root, 0);
+            showRecursive(root, 0);
         else
-            return "tree is empty";
+            cout << "tree is empty" << endl;
     }
     /*
         @brief Показ дерева справа-налево
-
-        @return Строка для вывода в консоль
     */
-    string showRightToLeft() const
+    void showRightToLeft() const
     {
         if (root)
-            return showRightToLeftRecursive(root, 0);
+            showRightToLeftRecursive(root, 0);
         else
-            return "tree is empty";
+            cout << "tree is empty" << endl;
     }
 
     /*
@@ -265,16 +261,14 @@ public:
         @brief Поиск элемента
 
         @param Значение для элемента, который ищем
-
-        @return Строка для вывода в консоль
     */
-    string find(T value) const
+    void find(T value) const
     {
         Node* node = findRecursive(root, value);
         if (node->data == value)
-            return showRecursive(node, 0);
+            showRecursive(node, 0);
         else
-            return "there is no such element with value " + to_string(value);
+            cout << "there is no such element with value " << value << endl;
     }
 };
 
@@ -286,20 +280,20 @@ int main()
     tree.add(4);
     tree.add(7);
     tree.add(10);
-    cout << tree.show() << endl;
-    cout << tree.showRightToLeft() << endl;
+    tree.show();
+    tree.showRightToLeft();
 
     tree.add(-1);
     tree.add(-4);
-    cout << tree.show() << endl;
+    tree.show();
 
-    cout << tree.find(7) << endl;
+    tree.find(7);
 
     tree.remove(7);
-    cout << tree.show() << endl;
+    tree.show();
 
-    cout << tree.find(7) << endl;
+    tree.find(7);
 
     tree.del();
-    cout << tree.show() << endl;
+    tree.show();
 }
