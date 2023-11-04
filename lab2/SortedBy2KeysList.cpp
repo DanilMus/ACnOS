@@ -163,7 +163,7 @@ int main()
 {
     SortedBy2KeysList<string, int> list;
 
-    list.add("Мусихин", 6);
+    list.add("Мусихин", 7);
     list.add("Иванов", 10);
     list.add("Иванов", 3);
     list.add("Шаравьев", 15);
