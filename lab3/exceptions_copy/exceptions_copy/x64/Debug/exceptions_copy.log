@@ -1,0 +1,6 @@
+﻿  exceptions.cpp
+E:\HSE\course2\ACnOC\lab3\exceptions_copy\exceptions_copy\exceptions.cpp(80,19): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+E:\HSE\course2\ACnOC\lab3\exceptions_copy\exceptions_copy\exceptions.cpp(83,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+E:\HSE\course2\ACnOC\lab3\exceptions_copy\exceptions_copy\exceptions.cpp(107,19): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+E:\HSE\course2\ACnOC\lab3\exceptions_copy\exceptions_copy\exceptions.cpp(110,14): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  exceptions_copy.vcxproj -> E:\HSE\course2\ACnOC\lab3\exceptions_copy\x64\Debug\exceptions_copy.exe

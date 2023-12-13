@@ -1,0 +1,15 @@
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\bin\Debug\net6.0\exceptionsCsharp.exe
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\bin\Debug\net6.0\exceptionsCsharp.deps.json
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\bin\Debug\net6.0\exceptionsCsharp.runtimeconfig.json
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\bin\Debug\net6.0\exceptionsCsharp.dll
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\bin\Debug\net6.0\exceptionsCsharp.pdb
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.csproj.AssemblyReference.cache
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.GeneratedMSBuildEditorConfig.editorconfig
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.AssemblyInfoInputs.cache
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.AssemblyInfo.cs
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.csproj.CoreCompileInputs.cache
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.dll
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\refint\exceptionsCsharp.dll
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.pdb
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\exceptionsCsharp.genruntimeconfig.cache
+E:\HSE\course2\ACnOC\lab3\exceptionsCsharp\exceptionsCsharp\obj\Debug\net6.0\ref\exceptionsCsharp.dll
