@@ -1,14 +1,8 @@
-#ifndef LIB_EXAMPLE_H
-#define LIB_EXAMPLE_H
+#ifndef LIB_H
+#define LIB_H
 
-#ifdef _WIN32
-    #define EXPORT_SYMBOL __declspec(dllexport)
-#else
-    #define EXPORT_SYMBOL
-#endif
+#include <iostream>
 
-extern "C" {
-    EXPORT_SYMBOL int showMessage();
-}
+extern "C" int showMessage();
 
-#endif // LIB_EXAMPLE_H
+#endif // LIB_H

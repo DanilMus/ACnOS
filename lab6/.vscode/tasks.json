@@ -1,28 +1,21 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe сборка активного файла",
-            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
             "args": [
-                "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/lib.cpp",
+                "${workspaceFolder}/main_for_win.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
+                "${workspaceFolder}/main_for_win.exe"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "Задача создана отладчиком."
+            }
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

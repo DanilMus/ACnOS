@@ -1,38 +1,32 @@
 #include <iostream>
 #include <windows.h>
+#include "lib.h"
 
 typedef int (*ShowMessageFunction)();
 
 int main() {
-    // Явное связывание
-    const char* libraryName = "libexample.dll";
+    // Неявное связывание
+    int resultImplicit = showMessage();
+    std::cout << "Returned implicitly: " << resultImplicit << std::endl;
 
-    HMODULE lib = LoadLibraryA(libraryName);
+    // Явное связывание
+    HMODULE lib = LoadLibraryA("lib.dll");
     if (!lib) {
         std::cerr << "Cannot open library." << std::endl;
         return 1;
     }
 
-    ShowMessageFunction showMessage = reinterpret_cast<ShowMessageFunction>(GetProcAddress(lib, "showMessage"));
-    if (!showMessage) {
+    // Получение указателя на функцию
+    ShowMessageFunction showMessageExplicit = reinterpret_cast<ShowMessageFunction>(GetProcAddress(lib, "showMessage"));
+    if (!showMessageExplicit) {
         std::cerr << "Cannot load symbol showMessage." << std::endl;
         FreeLibrary(lib);
         return 1;
     }
 
-    int result = showMessage();
-    std::cout << "Returned: " << result << std::endl;
-
-    // Неявное связывание
-    ShowMessageFunction showMessageImplicit = reinterpret_cast<ShowMessageFunction>(GetProcAddress(lib, "showMessage"));
-    if (!showMessageImplicit) {
-        std::cerr << "Cannot load symbol showMessage." << std::endl;
-        FreeLibrary(lib);
-        return 1;
-    }
-
-    int resultImplicit = showMessageImplicit();
-    std::cout << "Returned implicitly: " << resultImplicit << std::endl;
+    // Вызов функции
+    int resultExplicit = showMessageExplicit();
+    std::cout << "Returned explicitly: " << resultExplicit << std::endl;
 
     FreeLibrary(lib);
 
