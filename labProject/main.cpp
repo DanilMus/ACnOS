@@ -58,6 +58,7 @@ int main() {
         std::cin >> url; 
         urls.push_back(url);
     } while (url != "0");
+    urls.pop_back();
 
     // Вектор для хранения потоков
     std::vector<std::thread> threads;
