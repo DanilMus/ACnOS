@@ -48,7 +48,16 @@ void downloadWebPage(const std::string& url, const std::string& filename) {
 
 int main() {
     // Список URL-адресов для загрузки
-    std::vector<std::string> urls = {"https://metanit.com/sql/mysql/2.4.php"};
+    std::vector<std::string> urls = {};
+
+    // Пополение адресов
+    std::cout << "Введите url адреса через enter, когда закончите, введите 0: " << std::endl;
+
+    std::string url;
+    do {
+        std::cin >> url; 
+        urls.push_back(url);
+    } while (url != "0");
 
     // Вектор для хранения потоков
     std::vector<std::thread> threads;
