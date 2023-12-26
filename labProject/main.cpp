@@ -3,18 +3,16 @@
 #include <thread>
 #include <curl/curl.h>
 #include <fstream>
-
-// Функция для загрузки веб-страницы
-size_t writeCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
-    size_t totalSize = size * nmemb;
-    output->append(static_cast<char*>(contents), totalSize);
-    return totalSize;
-}
+#include <system_error>
 
 // Функция, которую выполняет каждый поток
 void downloadWebPage(const std::string& url, const std::string& filename) {
-    CURL* curl = curl_easy_init();
-    if (curl) {
+    try {
+        CURL* curl = curl_easy_init();
+        if (!curl) {
+            throw std::system_error(errno, std::generic_category(), "Failed to initialize CURL");
+        }
+
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
         // Буфер для хранения загруженной веб-страницы
@@ -29,7 +27,7 @@ void downloadWebPage(const std::string& url, const std::string& filename) {
 
         // Обработка ошибок
         if (res != CURLE_OK) {
-            std::cerr << "Error downloading " << url << ": " << curl_easy_strerror(res) << std::endl;
+            throw std::system_error(res, std::generic_category(), "Error downloading " + url);
         } else {
             // Сохранение в буфере в файл
             std::ofstream outputFile(filename);
@@ -37,12 +35,18 @@ void downloadWebPage(const std::string& url, const std::string& filename) {
                 outputFile << buffer;
                 std::cout << "Downloaded content from " << url << " saved to " << filename << std::endl;
             } else {
-                std::cerr << "Error opening file " << filename << " for writing." << std::endl;
+                throw std::system_error(errno, std::generic_category(), "Error opening file " + filename + " for writing");
             }
         }
 
         // Освобождение ресурсов CURL
         curl_easy_cleanup(curl);
+    } catch (const std::system_error& e) {
+        std::cerr << "Thread error: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Thread error: " << e.what() << std::endl;
+    } catch (...) {
+        std::cerr << "Unknown thread error" << std::endl;
     }
 }
 
