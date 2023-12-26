@@ -5,6 +5,13 @@
 #include <fstream>
 #include <system_error>
 
+// Функция для загрузки веб-страницы
+size_t writeCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
+    size_t totalSize = size * nmemb;
+    output->append(static_cast<char*>(contents), totalSize);
+    return totalSize;
+}
+
 // Функция, которую выполняет каждый поток
 void downloadWebPage(const std::string& url, const std::string& filename) {
     try {
